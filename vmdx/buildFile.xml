@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<VASSAL.build.module.ModuleExtension anyModule="false" description="PzB Deluxe - Append Selection For Chat" extensionId="2d22ee44-cbb8-4c3a-889e-2186e5e9d6f2" module="Panzer Blitz Deluxe" moduleVersion="1.02" nextPieceSlotId="0" vassalVersion="3.5.5" version="0.1.0">
+<VASSAL.build.module.ModuleExtension anyModule="false" description="PzB Deluxe - Append Selection For Chat" extensionId="2d22ee44-cbb8-4c3a-889e-2186e5e9d6f2" module="Panzer Blitz Deluxe" moduleVersion="1.02" nextPieceSlotId="0" vassalVersion="3.5.5" version="0.1.1">
     <VASSAL.build.module.ExtensionElement target="VASSAL.build.module.Map:Main Map">
         <rummelsworth.vassal.pzbdeluxe.AppendSelectionForChat/>
     </VASSAL.build.module.ExtensionElement>

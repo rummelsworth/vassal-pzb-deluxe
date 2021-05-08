@@ -91,14 +91,33 @@ public class AppendSelectionForChat extends AbstractConfigurable {
                         for (int stackIndex = 0; stackIndex < stackSize; ++stackIndex) {
                             GamePiece unit = stack.getPieceAt(stackIndex);
                             String currentBoard = (String) unit.getProperty("CurrentBoard");
-                            if (currentBoard != null) {
+                            final String boardPrefix = "Board ";
+                            if (currentBoard != null && currentBoard.startsWith(boardPrefix)) {
                                 Boolean unitIsSelected = (Boolean) unit.getProperty("Selected");
                                 if (unitIsSelected) {
+                                    String boardId = currentBoard.substring(boardPrefix.length());
                                     String locationName = (String) unit.getProperty("LocationName");
-                                    List<String> units = unitsPerHex.get(locationName);
+
+                                    int indexOfDigitId = locationName.length();
+                                    do {
+                                        --indexOfDigitId;
+                                    } while (indexOfDigitId >= 0 && Character.isDigit(locationName.charAt(indexOfDigitId)));
+                                    ++indexOfDigitId;
+
+                                    int indexOfLetterId = indexOfDigitId;
+                                    do {
+                                        --indexOfLetterId;
+                                    } while (indexOfLetterId >= 0 && Character.isLetter(locationName.charAt(indexOfLetterId)));
+                                    ++indexOfLetterId;
+
+                                    String letterId = locationName.substring(indexOfLetterId, indexOfDigitId);
+                                    String digitId = locationName.substring(indexOfDigitId);
+                                    String hexName = String.join("-", boardId, letterId, digitId);
+
+                                    List<String> units = unitsPerHex.get(hexName);
                                     if (units == null) {
                                         units = new ArrayList<String>();
-                                        unitsPerHex.put(locationName, units);
+                                        unitsPerHex.put(hexName, units);
                                     }
                                     String unitName = (String) unit.getProperty("BasicName");
                                     units.add(unitName);
