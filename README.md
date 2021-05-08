@@ -1,14 +1,15 @@
-## Getting Started
+# "Append Selection For Chat", an extension for PanzerBlitz Deluxe on Vassal
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+This extension provides a button that will append a text summary of the current unit selection into Vassal's chat input field. Handy for PBEM when you're declaring your attacks (in full detail) before resolving them.
 
-## Folder Structure
+This is the Vassal module page for PanzerBlitz:
 
-The workspace contains two folders by default, where:
+http://www.vassalengine.org/wiki/Module:PanzerBlitz
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+This is the actual download page for the "deluxe" module:
 
-## Dependency Management
+https://dddgamedesigns.com/vassal-products/
 
-The `JAVA DEPENDENCIES` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-pack/blob/master/release-notes/v0.9.0.md#work-with-jar-files-directly).
+The latter page is not (as of this writing) linked in the module page's table of downloads. It's a bit buried down in the paragraphs below the table.
+
+This repo contains the source code for a custom class extension (vmdx). The vmdx subfolder, when zipped, is the extension file itself. If you update the source code, you have to compile it and manually update the class files in the vmdx. If the extension is updated in the Vassal editor, you should decompress the modified extension and copy-replace all those files into the vmdx subfolder.
