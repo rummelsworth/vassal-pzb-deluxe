@@ -78,46 +78,49 @@ public class AppendSelectionForChat extends AbstractConfigurable {
     }
 
     private void appendPieceSelectionToChatInput() {
-        SortedMap<String, List<String>> unitsPerHex = new TreeMap<String, List<String>>();
-        GamePiece[] pieces = Map.activeMap.getPieces();
-        for (int piecesIndex = 0; piecesIndex < pieces.length; ++piecesIndex) {
-            GamePiece piece = pieces[piecesIndex];
-            if (piece instanceof Stack) {
-                Stack stack = (Stack) piece;
-                int stackSize = stack.getPieceCount();
-                if (stackSize > 0) {
-                    for (int stackIndex = 0; stackIndex < stackSize; ++stackIndex) {
-                        GamePiece unit = stack.getPieceAt(stackIndex);
-                        String currentBoard = (String) unit.getProperty("CurrentBoard");
-                        if (currentBoard != null) {
-                            Boolean unitIsSelected = (Boolean) unit.getProperty("Selected");
-                            if (unitIsSelected) {
-                                String locationName = (String) unit.getProperty("LocationName");
-                                List<String> units = unitsPerHex.get(locationName);
-                                if (units == null) {
-                                    units = new ArrayList<String>();
-                                    unitsPerHex.put(locationName, units);
+        Map map = Map.activeMap;
+        if (map != null) {
+            SortedMap<String, List<String>> unitsPerHex = new TreeMap<String, List<String>>();
+            GamePiece[] pieces = map.getPieces();
+            for (int piecesIndex = 0; piecesIndex < pieces.length; ++piecesIndex) {
+                GamePiece piece = pieces[piecesIndex];
+                if (piece instanceof Stack) {
+                    Stack stack = (Stack) piece;
+                    int stackSize = stack.getPieceCount();
+                    if (stackSize > 0) {
+                        for (int stackIndex = 0; stackIndex < stackSize; ++stackIndex) {
+                            GamePiece unit = stack.getPieceAt(stackIndex);
+                            String currentBoard = (String) unit.getProperty("CurrentBoard");
+                            if (currentBoard != null) {
+                                Boolean unitIsSelected = (Boolean) unit.getProperty("Selected");
+                                if (unitIsSelected) {
+                                    String locationName = (String) unit.getProperty("LocationName");
+                                    List<String> units = unitsPerHex.get(locationName);
+                                    if (units == null) {
+                                        units = new ArrayList<String>();
+                                        unitsPerHex.put(locationName, units);
+                                    }
+                                    String unitName = (String) unit.getProperty("BasicName");
+                                    units.add(unitName);
                                 }
-                                String unitName = (String) unit.getProperty("BasicName");
-                                units.add(unitName);
                             }
                         }
                     }
                 }
             }
+
+            List<String> hexTexts = new ArrayList<String>();
+            for (Entry<String, List<String>> hex : unitsPerHex.entrySet()) {
+                String unitsText = String.join(", ", hex.getValue());
+                String hexText = "[" + unitsText + "](" + hex.getKey() + ")";
+                hexTexts.add(hexText);
+            }
+
+            String selectionText = String.join(" + ", hexTexts);
+
+            JTextField chatInputField = GameModule.getGameModule().getChatter().getInputField();
+            String currentChatInput = chatInputField.getText();
+            chatInputField.setText(currentChatInput + selectionText);
         }
-
-        List<String> hexTexts = new ArrayList<String>();
-        for (Entry<String, List<String>> hex : unitsPerHex.entrySet()) {
-            String unitsText = String.join(", ", hex.getValue());
-            String hexText = "[" + unitsText + "](" + hex.getKey() + ")";
-            hexTexts.add(hexText);
-        }
-
-        String selectionText = String.join(" + ", hexTexts);
-
-        JTextField chatInputField = GameModule.getGameModule().getChatter().getInputField();
-        String currentChatInput = chatInputField.getText();
-        chatInputField.setText(currentChatInput + selectionText);
     }
 }
