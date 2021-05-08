@@ -89,25 +89,14 @@ public class AppendSelectionForChat extends AbstractConfigurable {
                     for (int stackIndex = 0; stackIndex < stackSize; ++stackIndex) {
                         GamePiece unit = stack.getPieceAt(stackIndex);
                         String currentBoard = (String) unit.getProperty("CurrentBoard");
-                        final String boardPrefix = "PZB Board ";
-                        if (currentBoard != null && currentBoard.startsWith(boardPrefix)) {
+                        if (currentBoard != null) {
                             Boolean unitIsSelected = (Boolean) unit.getProperty("Selected");
                             if (unitIsSelected) {
-                                String boardId = currentBoard.substring(boardPrefix.length());
-
                                 String locationName = (String) unit.getProperty("LocationName");
-                                int indexOfRowId = 0;
-                                while (!Character.isDigit(locationName.charAt(indexOfRowId))) {
-                                    ++indexOfRowId;
-                                }
-                                String columnId = locationName.substring(0, indexOfRowId);
-                                String rowId = locationName.substring(indexOfRowId);
-                                String hexName = String.join("-", boardId, columnId, rowId);
-
-                                List<String> units = unitsPerHex.get(hexName);
+                                List<String> units = unitsPerHex.get(locationName);
                                 if (units == null) {
                                     units = new ArrayList<String>();
-                                    unitsPerHex.put(hexName, units);
+                                    unitsPerHex.put(locationName, units);
                                 }
                                 String unitName = (String) unit.getProperty("BasicName");
                                 units.add(unitName);
