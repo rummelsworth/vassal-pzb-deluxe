@@ -1,0 +1,9 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "c:\\Program Files\\VASSAL-3.5.5\\lib\\Vengine.jar"
+    ],
+    "java.project.sourcePaths": [
+        "src"
+    ]
+}
