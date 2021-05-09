@@ -1,6 +1,6 @@
 # "Append Selection For Chat", an extension for PanzerBlitz Deluxe on Vassal
 
-This extension provides a button that will append a text summary of the current unit selection into Vassal's chat input field. Handy for PBEM when you're declaring your attacks (in full detail) before resolving them.
+This extension provides a button that will append a text summary of the current unit selection into Vassal's chat input field. The summary includes unit names (e.g. "20mm AA" etc.) and board locations (e.g. "2-D-4" for hex D4 on board 2). Handy for PBEM when you're declaring your attacks in full detail before resolving them.
 
 This is the Vassal module page for PanzerBlitz:
 
